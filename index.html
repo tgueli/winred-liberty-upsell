@@ -1,0 +1,648 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Liberty Match - Bonus Levels</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap"><style>:root{--navy:#1c2b4b;--navy-2:#26395f;--navy-3:#33497a;--navy-deep:#111b31;--red:#b22234;--red-2:#8f1a29;--red-hi:#cf3346;--parch:#f2e6c8;--parch-2:#e8d7ad;--parch-3:#d8c08a;--vellum:#fbf5e6;--gilt:#c8962e;--gilt-hi:#ecc766;--gilt-lo:#86611a;--ink:#2b2118;--ink-2:#5b4a37;--ink-3:#7d6a52;--green:#2e7d4f;--green-2:#226140;--white:#fffdf7;--ui:"Atkinson Hyperlegible",system-ui,sans-serif;--display:"Libre Caslon Display","Libre Caslon Text",serif;--serif:"Libre Caslon Text",serif;--gutter:16px;--radius:14px}html{height:100%;box-sizing:border-box;font-size:20px}*,*::before,*::after{box-sizing:inherit}body{height:100%;margin:0;overflow:hidden;font-family:var(--ui);font-size:1rem;line-height:1.45;color:var(--ink);background:var(--navy-deep);-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit}svg{display:block}h1,h2,h3,p{margin:0}#app{position:relative;height:100%;max-width:480px;margin:0 auto;overflow:hidden;background:var(--parch);user-select:none}.screen{position:absolute;inset:0;display:flex;flex-direction:column}.parchment{background:var(--parch)}[hidden]{display:none!important}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:.6rem 1.2rem;border:0;border-radius:12px;font-family:var(--ui);font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .08s ease}.btn:active{transform:translateY(2px)}.btn-xl{min-height:3.5rem;font-size:1.2rem;width:100%}.btn-red{color:var(--white);background:linear-gradient(#c92b3f,#a41d30);box-shadow:inset 0 -4px 0 rgba(0,0,0,.22),0 3px 0 #6b1220}.btn-ghost{background:var(--vellum);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy-3),0 2px 0 rgba(28,43,75,.25)}#scr-game{background:radial-gradient(ellipse at 50% 35%,rgba(60,86,144,.55),transparent 70%),var(--navy);color:#fff}.gtop{flex:none;display:flex;justify-content:center;padding:.8rem var(--gutter) .3rem}.gtitle{text-align:center;line-height:1.15}.gtitle .lv{display:block;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gilt-hi)}.gtitle .nm{display:block;font-family:var(--serif);font-weight:700;font-size:1.2rem}.hud{flex:none;display:grid;grid-template-columns:5.4rem 1fr;gap:.6rem;padding:.3rem var(--gutter) .4rem}.hud-box{border-radius:12px;background:linear-gradient(#fdf8ea,#efe1bd);color:var(--ink);box-shadow:0 0 0 2.5px var(--gilt),inset 0 -3px 0 rgba(134,97,26,.18)}.moves{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.25rem 0}.moves .lbl,.goals-lbl{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}.moves .val{font-size:2rem;font-weight:700;line-height:1;color:var(--navy)}.goals-box{display:flex;flex-direction:column;justify-content:center;padding:.3rem .6rem;gap:.15rem}.goals{display:flex;flex-wrap:wrap;gap:.35rem .8rem;align-items:center}.goal{display:inline-flex;align-items:center;gap:.3rem;font-weight:700;font-size:1.35rem;color:var(--navy)}.goal .gi{position:relative;width:2.3rem;height:2.3rem}.goal .gi svg{width:100%;height:100%}.goal.done{color:var(--green)}.goal .ck{display:none;width:1.5rem;height:1.5rem;color:#fff;background:var(--green);border-radius:50%;padding:.2rem}.goal.done .n{display:none}.goal.done .ck{display:block}.goal.bump .gi{animation:bump .35s ease}@keyframes bump{40%{transform:scale(1.3)}}.scorebar{flex:none;padding:0 var(--gutter) .35rem;display:grid;grid-template-columns:1fr auto;align-items:center;gap:.6rem}.sb-track{position:relative;height:.75rem;border-radius:999px;background:rgba(0,0,0,.35);box-shadow:inset 0 0 0 1.5px rgba(200,150,46,.6)}.sb-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gilt),var(--gilt-hi));transition:width .4s ease}.score-num{font-weight:700;font-size:.95rem;min-width:4.5rem;text-align:right;color:#f4e7c5}.board-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:start center;align-content:start;padding:.45rem var(--gutter) .3rem}.board{position:relative;border-radius:12px;background:#f5ead0;box-shadow:0 0 0 4px var(--gilt),0 0 0 7px #5e440f,0 12px 26px rgba(0,0,0,.5);touch-action:none;overflow:hidden}.board.shake{animation:shake .32s ease}@keyframes shake{20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(2px,-1px)}}.tiles,.pieces,.fx{position:absolute;inset:0}.fx{pointer-events:none;z-index:3}.pieces{z-index:2}.tile{position:absolute;left:0;top:0;width:var(--cell);height:var(--cell);background:#f6ecd3}.tile.alt{background:#eadcb6}.tile.seal1,.tile.seal2{background:#c0392f;box-shadow:inset 0 0 0 2px #7d1b16,inset 0 0 0 5px #d95a4f}.tile.seal2{background:#8e211b;box-shadow:inset 0 0 0 2px #4e0f0b,inset 0 0 0 5px var(--gilt)}.tile svg{position:absolute;inset:14%;width:72%;height:72%;opacity:.45}.pc{position:absolute;left:0;top:0;width:var(--cell);height:var(--cell);will-change:transform}.pc::before{content:"";position:absolute;left:18%;right:18%;bottom:6%;height:14%;border-radius:50%;background:radial-gradient(rgba(60,40,10,.35),transparent 70%)}.pc .ic{position:absolute;left:7%;top:6%;width:86%;height:86%;transition:transform .15s ease}.pc .ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pc.sp-col .ov{transform:rotate(90deg)}.pc.sp-row .ic,.pc.sp-col .ic,.pc.sp-keg .ic{animation:glow 1.4s ease-in-out infinite}@keyframes glow{50%{filter:drop-shadow(0 0 5px rgba(255,207,63,.95))}}.pc.sel .ic{transform:scale(1.12)}.pc.sel::after{content:"";position:absolute;inset:2%;border-radius:24%;border:4px solid #ffcf3f;box-shadow:0 0 12px rgba(255,207,63,.9),inset 0 0 8px rgba(255,207,63,.6)}.pc.pop .ic{animation:pop .26s ease-in forwards}@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.28);opacity:1}100%{transform:scale(0);opacity:0}}.pc.pop::before{opacity:0}.pc.made .ic{animation:made .5s ease-out}@keyframes made{0%{transform:scale(.4) rotate(-30deg)}60%{transform:scale(1.3) rotate(6deg)}100%{transform:scale(1)}}.pc.hit .ic{animation:hit .3s ease}@keyframes hit{25%{transform:translateX(-8%) rotate(-5deg)}75%{transform:translateX(8%) rotate(5deg)}}.pc.nope .ic{animation:hit .3s ease}.beam{position:absolute;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0),#fff 20%,#ffe28a 50%,#fff 80%,rgba(255,255,255,0));box-shadow:0 0 16px #ffd34d,0 0 30px rgba(255,150,40,.7)}.beam.h{height:34%;animation:beamh .42s ease-out forwards}.beam.v{width:34%;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 20%,#ffe28a 50%,#fff 80%,rgba(255,255,255,0));animation:beamv .42s ease-out forwards}@keyframes beamh{0%{transform:scaleX(.05);opacity:1}55%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1) scaleY(.2);opacity:0}}@keyframes beamv{0%{transform:scaleY(.05);opacity:1}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) scaleX(.2);opacity:0}}.blast{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff 0 15%,#ffe28a 30%,#ff9a3d 55%,rgba(210,50,40,0) 72%);animation:blast .5s ease-out forwards}@keyframes blast{0%{transform:scale(.2);opacity:1}70%{opacity:.95}100%{transform:scale(1.15);opacity:0}}.flash{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,226,138,.6) 45%,rgba(255,226,138,0) 70%);animation:flash .45s ease-out forwards}@keyframes flash{0%{transform:scale(.3);opacity:1}100%{transform:scale(1.3);opacity:0}}.bell-lines{position:absolute;inset:0;width:100%;height:100%}.bell-lines line{stroke:#ffd34d;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 0 3px #fff);animation:zap .5s ease-out forwards}@keyframes zap{0%{opacity:1;stroke-dasharray:0 400}50%{stroke-dasharray:400 0;opacity:1}100%{opacity:0}}.pts{position:absolute;z-index:6;transform:translate(-50%,-50%);font-weight:700;font-size:1.15rem;color:#fff;text-shadow:0 0 3px var(--navy),0 2px 0 var(--navy),2px 0 0 var(--navy),-2px 0 0 var(--navy),0 -2px 0 var(--navy);animation:rise .9s ease-out forwards}@keyframes rise{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}20%{opacity:1;transform:translate(-50%,-60%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-160%) scale(1)}}.spark{position:absolute;width:8px;height:8px;border-radius:2px;animation:spark .8s ease-out forwards}@keyframes spark{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(260deg);opacity:0}}.banner{position:absolute;left:50%;top:50%;z-index:8;transform:translate(-50%,-50%);width:max-content;max-width:calc(100% - 2 * var(--gutter));padding:.7rem 1.4rem;border-radius:14px;background:var(--red);color:#fff;font-family:var(--serif);font-weight:700;font-size:1.5rem;text-align:center;box-shadow:0 0 0 3px var(--gilt),0 10px 24px rgba(0,0,0,.45);pointer-events:none;animation:bannerIn .35s cubic-bezier(.2,1.4,.5,1)}.banner small{display:block;font-family:var(--ui);font-weight:400;font-size:.85rem}@keyframes bannerIn{from{transform:translate(-50%,-50%) scale(.6);opacity:0}}.skip-note{position:absolute;bottom:.4rem;left:0;right:0;z-index:8;text-align:center;font-size:.85rem;color:#fff;text-shadow:0 1px 2px #000;pointer-events:none}.boosters{flex:none;display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;padding:.45rem var(--gutter) .7rem}.booster{position:relative;display:flex;flex-direction:column;align-items:center;gap:.05rem;padding:.35rem .2rem .4rem;border:0;border-radius:14px;background:linear-gradient(#fdf8ea,#eadbb4);color:var(--ink);box-shadow:0 0 0 2.5px var(--gilt),0 3px 0 #5e440f;cursor:pointer;touch-action:manipulation}.booster:active{transform:translateY(2px)}.booster svg{width:2.4rem;height:2.4rem}.booster .bname{font-weight:700;font-size:.85rem}.booster .bcount{position:absolute;top:-.45rem;right:-.3rem;min-width:1.6rem;height:1.6rem;padding:0 .35rem;display:grid;place-items:center;border-radius:999px;background:var(--navy);color:#fff;font-size:.85rem;font-weight:700;box-shadow:0 0 0 2px #fff}.booster .bcount.buy{background:var(--green)}.booster.armed{background:linear-gradient(#fff2c2,#f3cf63);box-shadow:0 0 0 3px #fff,0 0 18px #ffd34d}.booster:disabled{opacity:.55}.bubble{position:absolute;left:var(--gutter);right:var(--gutter);bottom:.6rem;z-index:9;display:grid;grid-template-columns:3.4rem 1fr;gap:.7rem;align-items:start;padding:.75rem .85rem;border-radius:16px;background:var(--vellum);color:var(--ink);box-shadow:0 0 0 3px var(--gilt),0 10px 24px rgba(0,0,0,.45);animation:bubbleIn .35s cubic-bezier(.2,1.3,.5,1)}.bubble.top{bottom:auto;top:.4rem}.bubble svg.crier{width:3.4rem;height:3.4rem}.bubble b{display:block;font-family:var(--serif);color:var(--red);font-size:1rem}.bubble p{font-size:.98rem;line-height:1.4}.bubble .btn{margin-top:.5rem;min-height:2.6rem;padding:.4rem 1rem;font-size:.95rem}.bubble .row{display:flex;gap:.5rem;flex-wrap:wrap}@keyframes bubbleIn{from{transform:translateY(20px);opacity:0}}.bubble.nudge{animation:hit .35s ease}.bubble.mini{grid-template-columns:1fr auto;align-items:center;gap:.6rem;padding:.5rem .55rem .5rem .9rem}.bubble.mini p{font-weight:700;font-size:.95rem;line-height:1.3}.bubble.mini .btn{margin-top:0}#modal-root{position:absolute;inset:0;z-index:50;pointer-events:none}.backdrop{position:absolute;inset:0;display:grid;place-items:center;padding:var(--gutter);background:rgba(10,16,30,.62);pointer-events:auto;animation:fadeIn .2s ease}.backdrop.sheet{place-items:end stretch;padding:0}@keyframes fadeIn{from{opacity:0}}.modal{position:relative;width:100%;max-height:100%;overflow-y:auto;padding:1.3rem 1.1rem 1.1rem;border-radius:18px;background:radial-gradient(ellipse at 50% 0%,rgba(255,252,240,.9),transparent 60%),var(--parch);box-shadow:0 0 0 3px var(--gilt),0 0 0 6px var(--navy),0 18px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:.85rem;text-align:center;animation:popIn .3s cubic-bezier(.2,1.3,.5,1)}.sheet .modal{border-radius:20px 20px 0 0;box-shadow:0 0 0 3px var(--gilt),0 -10px 30px rgba(0,0,0,.45);animation:slideUp .3s ease;max-height:92%}@keyframes popIn{from{transform:scale(.85);opacity:0}}@keyframes slideUp{from{transform:translateY(100%)}}.modal .ribbon-h{align-self:center;margin-top:-.2rem;padding:.3rem 1.6rem;background:var(--red);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,94% 50%,100% 100%,0 100%,6% 50%)}.modal h2{font-family:var(--serif);font-weight:700;font-size:1.55rem;line-height:1.15;color:var(--navy)}.modal h2.display{font-family:var(--display);font-weight:400;font-size:2.1rem}.modal .date{font-family:var(--serif);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:-.5rem}.modal .lead{font-size:1rem;line-height:1.5;color:var(--ink);text-align:left}.modal .actions{display:flex;flex-direction:column;gap:.6rem;margin-top:.2rem}.modal>.actions:last-child{position:sticky;bottom:-1.1rem;z-index:2;margin:.2rem -1.1rem -1.1rem;padding:.7rem 1.1rem 1.1rem;background:linear-gradient(rgba(242,230,200,0),var(--parch) 1rem)}.btn-stack{flex-direction:column;gap:.15rem}.btn-stack small{display:inline-flex;align-items:center;gap:.3rem;font-size:.9rem}.btn-stack small svg{width:1.2rem;height:1.2rem}.goal-panel{padding:.8rem;border-radius:14px;background:var(--vellum);box-shadow:0 0 0 2px var(--parch-3);display:flex;flex-direction:column;gap:.5rem;text-align:left}.goal-panel .eyebrow{text-align:center}.goal-line{display:flex;align-items:center;gap:.7rem;font-size:1.05rem;font-weight:700}.goal-line svg{width:2.6rem;height:2.6rem;flex:none}.goal-moves{text-align:center;font-size:.95rem;color:var(--ink-2)}.stars-big{display:flex;justify-content:center;gap:.4rem;align-items:flex-end}.stars-big svg{width:3.6rem;height:3.6rem;color:#cdbb90}.stars-big svg:nth-child(2){width:4.4rem;height:4.4rem}.stars-big svg.on{color:var(--gilt);filter:drop-shadow(0 0 6px rgba(236,199,102,.8));animation:starIn .45s cubic-bezier(.2,1.5,.5,1) both}.stars-big svg.on:nth-child(2){animation-delay:.25s}.stars-big svg.on:nth-child(3){animation-delay:.5s}@keyframes starIn{from{transform:scale(0) rotate(-90deg)}}.reward-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap}.reward{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .8rem;border-radius:999px;background:var(--navy);color:#fff;font-weight:700}.reward svg{width:1.4rem;height:1.4rem}.big-ico{width:5rem;height:5rem;align-self:center}.remaining{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem 1rem}.remaining .goal{color:var(--navy)}.coins-have{font-size:.9rem;color:var(--ink-2);display:inline-flex;align-items:center;gap:.3rem;justify-content:center}.coins-have svg{width:1.2rem;height:1.2rem}.checkout-item{display:grid;grid-template-columns:3.4rem 1fr;gap:.8rem;align-items:center;text-align:left;padding:.7rem;border-radius:14px;background:var(--vellum);box-shadow:0 0 0 2px var(--parch-3)}.checkout-item svg{width:3.4rem;height:3.4rem}.checkout-item b{display:block;font-size:1.05rem}.checkout-item span{font-size:.88rem;color:var(--ink-2)}.price-big{font-size:2.2rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}.demo-note{padding:.55rem .7rem;border-radius:10px;background:#fff3cd;box-shadow:0 0 0 1.5px #e0c46c;font-size:.88rem;color:#5c4712;text-align:left}.spinner{width:2.4rem;height:2.4rem;align-self:center;border-radius:50%;border:4px solid var(--parch-3);border-top-color:var(--navy);animation:spin .8s linear infinite}.days{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem}.day{position:relative;display:flex;flex-direction:column;align-items:center;gap:.1rem;padding:.45rem .2rem .4rem;border-radius:12px;background:var(--vellum);box-shadow:0 0 0 1.5px var(--parch-3);font-size:.78rem;font-weight:700;color:var(--ink-2)}.day svg{width:2rem;height:2rem}.day .amt{font-size:.82rem;color:var(--navy)}.day.past{opacity:.55}.day.past::after{content:"\2713";position:absolute;top:.1rem;right:.35rem;color:var(--green);font-size:1rem}.day.today{background:#fff2c2;box-shadow:0 0 0 3px var(--red)}.day.d7{grid-column:span 2}.video-box{aspect-ratio:16/9;max-width:100%;border-radius:12px;background:var(--navy-deep);color:#fff;display:grid;place-items:center;padding:1rem;font-size:.95rem}.video-box b{display:block;font-size:2.4rem;font-variant-numeric:tabular-nums}.help-steps{display:flex;flex-direction:column;gap:.7rem;text-align:left}.help-step{display:grid;grid-template-columns:3.4rem 1fr;gap:.75rem;align-items:center}.help-step .art{display:flex;justify-content:center}.help-step .art svg{width:3rem;height:3rem}.help-step .art.pair svg{width:1.9rem;height:1.9rem}.help-step p{font-size:.95rem;line-height:1.4}.help-step b{color:var(--navy)}.sp-demo{position:relative;width:3rem;height:3rem}.sp-demo svg{position:absolute;inset:0;width:100%;height:100%}.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:60}.confetti i{position:absolute;top:-20px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(720deg)}}.toast{position:absolute;left:50%;bottom:6rem;z-index:70;transform:translateX(-50%);max-width:calc(100% - 2 * var(--gutter));padding:.7rem 1.1rem;border-radius:12px;background:var(--navy-deep);color:#fff;font-weight:700;font-size:.95rem;text-align:center;box-shadow:0 0 0 2px var(--gilt),0 8px 20px rgba(0,0,0,.4);animation:toastIn .3s ease;pointer-events:none}@keyframes toastIn{from{transform:translate(-50%,20px);opacity:0}}.fly-coin{position:absolute;z-index:80;width:1.6rem;height:1.6rem;pointer-events:none;transition:transform .7s cubic-bezier(.5,-0.3,.7,1),opacity .7s}@media (max-height:760px){.broadside{gap:.4rem;padding-bottom:1rem}.bs-title{font-size:3rem}.bs-year{font-size:1.35rem}.title-flag{width:min(48%,220px)}.seal-btn{width:6.6rem;height:6.6rem}.seal-btn span{font-size:1.45rem}}@media (prefers-reduced-motion:reduce){.stop.current .node::after,.pc .rays,.pc.hint .ic,.moves.low .val,.pc.sp-row .ic,.pc.sp-col .ic,.pc.sp-keg .ic,.pc.drop .badge{animation:none}.board.shake{animation:none}.confetti{display:none}}
+/* ---------- Top bar ---------- */
+.topbar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .55rem var(--gutter); background: linear-gradient(var(--navy-2), var(--navy)); border-bottom: 3px solid var(--gilt); color: var(--white); }
+.pill { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.6rem; padding: .2rem .8rem .2rem .3rem; border: 2px solid var(--gilt); border-radius: 999px; background: var(--navy-deep); color: var(--white); font-weight: 700; font-size: 1.05rem; cursor: pointer; touch-action: manipulation; font-variant-numeric: tabular-nums; }
+.pill > svg { width: 2rem; height: 2rem; }
+.pill .sub { font-size: .75rem; font-weight: 700; color: var(--gilt-hi); margin-left: .1rem; }
+.pill .plus { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; margin-left: .2rem; border-radius: 50%; background: var(--green); color: #fff; }
+.pill .plus svg { width: 1rem; height: 1rem; }
+.heart-ico { color: #e2394f; }
+/* ---------- Tab bar ---------- */
+.views { position: relative; flex: 1; min-height: 0; }
+.view { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.tabbar { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--navy); border-top: 3px solid var(--gilt); }
+.tab { position: relative; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .45rem 0 .5rem; border: 0; background: none; color: #c9d2e8; font-size: .8rem; font-weight: 700; cursor: pointer; touch-action: manipulation; }
+.tab svg { width: 1.6rem; height: 1.6rem; }
+.tab[aria-current="page"] { color: #fff; background: linear-gradient(rgba(178, 34, 52, .0), rgba(178, 34, 52, .45)); }
+.tab[aria-current="page"]::before { content: ""; position: absolute; top: -3px; left: 20%; right: 20%; height: 5px; border-radius: 0 0 4px 4px; background: var(--red-hi); }
+.tab .dot { position: absolute; top: .35rem; left: calc(50% + .55rem); width: .65rem; height: .65rem; border-radius: 50%; background: var(--red-hi); box-shadow: 0 0 0 2px var(--navy); }
+/* ---------- Shared page pieces ---------- */
+.page { padding: 1rem var(--gutter) 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.page-head h2 { font-family: var(--serif); font-weight: 700; font-size: 1.45rem; color: var(--navy); line-height: 1.15; }
+.page-head p { color: var(--ink-2); font-size: .92rem; margin-top: .2rem; }
+.eyebrow { font-family: var(--serif); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.section-title { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-weight: 700; font-size: 1.12rem; color: var(--navy); }
+.section-title::after { content: ""; flex: 1; height: 0; border-top: 1.5px solid var(--parch-3); }
+.card { background: var(--vellum); border-radius: var(--radius); box-shadow: 0 0 0 1.5px var(--parch-3), 0 3px 8px rgba(91, 74, 55, .12); }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- ===== Game pieces ===== -->
+    <symbol id="p-0" viewBox="0 0 64 64"><path d="M8 22 V47 C8 52.5 18.7 57 32 57 C45.3 57 56 52.5 56 47 V22 Z" fill="#d7263d" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><path d="M12 30 V47 C12 49.5 14 51.5 17 52.8 V33 Z" fill="#ff8a98" opacity=".5"/><path d="M11 30 L19 49 L27 33 L35 52 L43 33 L51 49" fill="none" stroke="#fff4dc" stroke-width="3" stroke-linejoin="round"/><path d="M8 26 C8 31 18.7 35 32 35 C45.3 35 56 31 56 26" fill="none" stroke="#f2b632" stroke-width="4"/><path d="M8 45 C8 50 18.7 54.5 32 54.5 C45.3 54.5 56 50 56 45" fill="none" stroke="#f2b632" stroke-width="4"/><ellipse cx="32" cy="22" rx="24" ry="9" fill="#fbf1dc" stroke="#2b1a0e" stroke-width="3"/><ellipse cx="28" cy="20" rx="11" ry="3.2" fill="#fff" opacity=".7"/><path d="M17 5 L37 20" stroke="#2b1a0e" stroke-width="6.5" stroke-linecap="round"/><path d="M17 5 L37 20" stroke="#a0692f" stroke-width="3" stroke-linecap="round"/><path d="M47 5 L27 20" stroke="#2b1a0e" stroke-width="6.5" stroke-linecap="round"/><path d="M47 5 L27 20" stroke="#a0692f" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="5" r="3.6" fill="#f6e7c8" stroke="#2b1a0e" stroke-width="2"/><circle cx="48" cy="5" r="3.6" fill="#f6e7c8" stroke="#2b1a0e" stroke-width="2"/></symbol><symbol id="p-1" viewBox="0 0 64 64"><circle cx="32" cy="7.5" r="4.5" fill="none" stroke="#2b1a0e" stroke-width="3"/><path d="M16 22 L32 10 L48 22 Z" fill="#e39a12" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><rect x="14.5" y="21" width="35" height="31" rx="4" fill="#f5b82e" stroke="#2b1a0e" stroke-width="3"/><rect x="19.5" y="25.5" width="25" height="22" rx="2.5" fill="#fff3b0" stroke="#b7791f" stroke-width="2"/><path d="M32 28 C37.5 33.5 38.5 38.5 32 45 C25.5 38.5 26.5 33.5 32 28 Z" fill="#ff8a1f" stroke="#c2410c" stroke-width="1.6"/><path d="M32 34.5 C34.6 37.2 34.6 39.6 32 42.2 C29.4 39.6 29.4 37.2 32 34.5 Z" fill="#ffe066"/><path d="M23.5 25.5 V47.5 M40.5 25.5 V47.5" stroke="#b7791f" stroke-width="2"/><path d="M17.5 24.5 V49" stroke="#ffe9a8" stroke-width="2.4" stroke-linecap="round"/><rect x="11.5" y="51" width="41" height="7" rx="3" fill="#e39a12" stroke="#2b1a0e" stroke-width="3"/></symbol><symbol id="p-2" viewBox="0 0 64 64"><path d="M14 29 C2 29 2 49 16 48" fill="none" stroke="#2b1a0e" stroke-width="9.5" stroke-linecap="round"/><path d="M14 29 C2 29 2 49 16 48" fill="none" stroke="#2f9e5b" stroke-width="4" stroke-linecap="round"/><path d="M47 37 C54 35 56 27 60 21.5 L63 24.5 C60 30 59 42 49 47 Z" fill="#2f9e5b" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><path d="M11 39 C11 25 53 25 53 39 C53 51 45 57 32 57 C19 57 11 51 11 39 Z" fill="#2f9e5b" stroke="#2b1a0e" stroke-width="3"/><path d="M16.5 34.5 C18.5 30.5 23.5 29 28 29" fill="none" stroke="#a6e8bf" stroke-width="3" stroke-linecap="round"/><path d="M13.5 43 C22 47.5 42 47.5 50.5 43" fill="none" stroke="#fff4dc" stroke-width="3"/><path d="M20 28 C21.5 19 42.5 19 44 28 Z" fill="#43b673" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="17.5" r="4" fill="#f2b632" stroke="#2b1a0e" stroke-width="2.5"/></symbol><symbol id="p-3" viewBox="0 0 64 64"><path d="M17 32 C16 14 48 14 47 32 Z" fill="#3b3b48" stroke="#111" stroke-width="3" stroke-linejoin="round"/><path d="M23 22 C26 19 30 18 34 18" fill="none" stroke="#72728a" stroke-width="2.5" stroke-linecap="round"/><path d="M3 30 C13 23 23 29 32 29 C41 29 51 23 61 30 C57 40 45 46 32 55 C19 46 7 40 3 30 Z" fill="#22222c" stroke="#111" stroke-width="3" stroke-linejoin="round"/><path d="M5.5 31 C14.5 25.5 23.5 31 32 31 C40.5 31 49.5 25.5 58.5 31" fill="none" stroke="#e8b923" stroke-width="3.5" stroke-linecap="round"/><path d="M8 35 C15 41 24 46 32 52 C40 46 49 41 56 35" fill="none" stroke="#e8b923" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="36.5" r="5" fill="#e8b923" stroke="#111" stroke-width="2"/><circle cx="21" cy="36.5" r="2" fill="#9a6d0c"/></symbol><symbol id="p-4" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27.5" fill="#1f5bd1" stroke="#0b1f4d" stroke-width="3"/><circle cx="32" cy="32" r="22.5" fill="none" stroke="#6f9bf0" stroke-width="2"/><path d="M14.5 21 C18.5 14 25 10 32 9.5" fill="none" stroke="#a9c4f7" stroke-width="3" stroke-linecap="round"/><path d="M32 12 L37 26.1 L52 26.5 L40.1 35.6 L44.3 50 L32 41.5 L19.7 50 L23.9 35.6 L12 26.5 L27 26.1 Z" fill="#fffdf7" stroke="#0b1f4d" stroke-width="2.5" stroke-linejoin="round"/></symbol><symbol id="p-5" viewBox="0 0 64 64"><path d="M13 57 C17 40 29 19 57 5 C59 19 51 35 37 45 C29 51 21 53 16 55 Z" fill="#8e44c9" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><path d="M41 22 L51 18 M35 31 L46 29 M29 40 L39 39" stroke="#dcc0f4" stroke-width="2.5" stroke-linecap="round"/><path d="M14 56 C25 40 37 24 54 8.5" fill="none" stroke="#fbf1dc" stroke-width="2.5" stroke-linecap="round"/><path d="M8 62 L12.5 52.5 L17 56.5 Z" fill="#2b1a0e"/></symbol><symbol id="p-bell" viewBox="0 0 64 64"><rect x="16" y="3" width="32" height="7" rx="2.5" fill="#7a4a1e" stroke="#2b1a0e" stroke-width="2.5"/><rect x="29" y="9.5" width="6" height="5" fill="#5a3616"/><path d="M20 14.5 C20 10 44 10 44 14.5 L46 38 C47 45 52 47.5 55 49.5 L55 54 L9 54 L9 49.5 C12 47.5 17 45 18 38 Z" fill="#c98b2b" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><path d="M23.5 17.5 C23 26 22.5 34 20.5 42" fill="none" stroke="#f3d08a" stroke-width="3" stroke-linecap="round"/><path d="M22 21 H42 M22 24.5 H42" stroke="#8a5a1c" stroke-width="1.8"/><path d="M33 27 L35.5 32 L32 37 L35.5 43 L32.5 48" fill="none" stroke="#2b1a0e" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="9" y="48" width="46" height="7" rx="2.5" fill="#e0a642" stroke="#2b1a0e" stroke-width="2.5"/><circle cx="32" cy="59" r="3.8" fill="#7a4a1e" stroke="#2b1a0e" stroke-width="2"/></symbol>
+    <!-- Overlays & Drops -->
+    <symbol id="ov-arrow" viewBox="0 0 64 64"><path d="M3 32 L15 21.5 V27.5 H49 V21.5 L61 32 L49 42.5 V36.5 H15 V42.5 Z" fill="#fffdf7" stroke="#b22234" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="ov-keg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="#ffcf3f" stroke-width="4" stroke-dasharray="7 5"/><g transform="translate(39 37)"><path d="M2 2 H21 C23 8 23 17 21 23 H2 C0 17 0 8 2 2 Z" fill="#9b6431" stroke="#2b1a0e" stroke-width="2.2"/><path d="M1 8 H22 M1 17 H22" stroke="#2b1a0e" stroke-width="2"/><path d="M16 2 C18 -3 20.5 -5 23.5 -5" fill="none" stroke="#2b1a0e" stroke-width="2"/><circle cx="24" cy="-5.5" r="3.4" fill="#ffb020" stroke="#c2410c" stroke-width="1.2"/></g></symbol><symbol id="crate-tea" viewBox="0 0 64 64"><rect x="4" y="7" width="56" height="52" rx="4" fill="#b7793b" stroke="#2b1a0e" stroke-width="3"/><path d="M4 19 H60 M4 47 H60" stroke="#6b4423" stroke-width="2.5"/><path d="M9 11 H55" stroke="#dcaa70" stroke-width="2" stroke-linecap="round"/><rect x="13" y="23" width="38" height="20" rx="2" fill="#efd8ae" stroke="#6b4423" stroke-width="2"/><text x="32" y="38.5" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#5a2d0c">TEA</text></symbol><symbol id="crate-tea-2" viewBox="0 0 64 64"><use href="#crate-tea"/><path d="M10 7 V59 M54 7 V59" stroke="#3d3d46" stroke-width="5.5"/><circle cx="10" cy="13" r="1.8" fill="#9a9aa8"/><circle cx="10" cy="53" r="1.8" fill="#9a9aa8"/><circle cx="54" cy="13" r="1.8" fill="#9a9aa8"/><circle cx="54" cy="53" r="1.8" fill="#9a9aa8"/></symbol><symbol id="crate-supply" viewBox="0 0 64 64"><rect x="4" y="7" width="56" height="52" rx="4" fill="#a8743f" stroke="#2b1a0e" stroke-width="3"/><path d="M4 20 H60 M4 46 H60 M22 7 V59 M42 7 V59" stroke="#6b4423" stroke-width="2"/><path d="M9 11 H55" stroke="#d6a36b" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="33" r="11" fill="#efd8ae" stroke="#6b4423" stroke-width="2"/><path d="M32 24.5 L34.4 30.2 L40.5 30.6 L35.8 34.4 L37.3 40.4 L32 37 L26.7 40.4 L28.2 34.4 L23.5 30.6 L29.6 30.2 Z" fill="#1c2b4b"/></symbol><symbol id="crate-supply-2" viewBox="0 0 64 64"><use href="#crate-supply"/><path d="M4 14 H60 M4 52 H60" stroke="#3d3d46" stroke-width="5"/><circle cx="9" cy="14" r="1.8" fill="#9a9aa8"/><circle cx="55" cy="14" r="1.8" fill="#9a9aa8"/><circle cx="9" cy="52" r="1.8" fill="#9a9aa8"/><circle cx="55" cy="52" r="1.8" fill="#9a9aa8"/></symbol><symbol id="crate-ice" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="54" rx="9" fill="#bfe3f3" stroke="#35698a" stroke-width="3"/><path d="M11 15 L25 10 M11 23 L17 21" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M40 16 L46 29 L38 37 L44 51" fill="none" stroke="#6ea8c6" stroke-width="2.2" stroke-linejoin="round"/><path d="M9 49 C21 55 43 55 55 49" fill="none" stroke="#eaf8fd" stroke-width="3"/></symbol><symbol id="crate-ice-2" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="54" rx="9" fill="#8fc6e2" stroke="#244f6d" stroke-width="3"/><rect x="10" y="12" width="44" height="42" rx="6" fill="none" stroke="#d9f1fb" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M13 17 L26 12" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M40 18 L46 30 L38 38 L44 50" fill="none" stroke="#3f7fa3" stroke-width="2.2" stroke-linejoin="round"/></symbol><symbol id="drop-cannon" viewBox="0 0 64 64"><path d="M5 49 H55 C59.5 49 62 46 62 42" fill="none" stroke="#5a3616" stroke-width="4" stroke-linecap="round"/><rect x="7" y="38" width="48" height="8" rx="2" fill="#a0692f" stroke="#2b1a0e" stroke-width="2.5"/><path d="M13 46 V49 M31 46 V49 M49 46 V49" stroke="#2b1a0e" stroke-width="2.5"/><path d="M11 30 C11 24 14 21 19 21 H52 C55 21 57 23 57 26 V31 C57 34 55 36 52 36 H19 C14 36 11 35 11 30 Z" fill="#2e2e38" stroke="#111" stroke-width="3"/><circle cx="9.5" cy="28.5" r="4.2" fill="#2e2e38" stroke="#111" stroke-width="2.5"/><path d="M21 25.5 H50" stroke="#777788" stroke-width="2.5" stroke-linecap="round"/><rect x="55" y="19.5" width="5" height="18" rx="1.8" fill="#1b1b22" stroke="#111" stroke-width="1.5"/></symbol><symbol id="drop-scroll" viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="40" rx="3" fill="#f6e7c8" stroke="#2b1a0e" stroke-width="3"/><rect x="6" y="7" width="52" height="10" rx="5" fill="#e3cc98" stroke="#2b1a0e" stroke-width="3"/><rect x="6" y="47" width="52" height="10" rx="5" fill="#e3cc98" stroke="#2b1a0e" stroke-width="3"/><path d="M18 23 H46 M18 29 H46 M18 35 H36" stroke="#8a7355" stroke-width="2.2" stroke-linecap="round"/><circle cx="44" cy="39" r="6" fill="#b22234" stroke="#6d1320" stroke-width="2"/></symbol><symbol id="drop-boat" viewBox="0 0 64 64"><path d="M30 6 V36" stroke="#5a3616" stroke-width="3"/><path d="M31.5 7.5 L51 13 L31.5 18.5 Z" fill="#b22234" stroke="#2b1a0e" stroke-width="2" stroke-linejoin="round"/><path d="M3 35 H61 L53 51 C45 55.5 19 55.5 11 51 Z" fill="#8b5a2b" stroke="#2b1a0e" stroke-width="3" stroke-linejoin="round"/><path d="M8 40.5 H56" stroke="#c48a4f" stroke-width="2.5"/><path d="M14 36 L6 26 M50 36 L58 26" stroke="#5a3616" stroke-width="2.5" stroke-linecap="round"/><path d="M3 59 C11 55 17 62.5 25 58.5 C33 54.5 39 62.5 47 58.5 C53 55.5 57 58 61 58.5" fill="none" stroke="#3d8fc4" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="i-seal" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#b8322a" stroke="#6f1813" stroke-width="3"/><circle cx="32" cy="32" r="20" fill="none" stroke="#e46a5e" stroke-width="2" stroke-dasharray="3 3"/><path d="M20 38 L18 24 L26 31 L32 20.5 L38 31 L46 24 L44 38 Z" fill="#f2c14e" stroke="#6f1813" stroke-width="2" stroke-linejoin="round"/><rect x="20" y="38" width="24" height="5" rx="1" fill="#f2c14e" stroke="#6f1813" stroke-width="2"/></symbol><symbol id="i-crown" viewBox="0 0 64 64"><path d="M16 42 L13 20 L24 30 L32 15 L40 30 L51 20 L48 42 Z" fill="#ffd9d4"/><rect x="16" y="43" width="32" height="6" rx="1.5" fill="#ffd9d4"/></symbol>
+    <!-- ===== Boosters ===== -->
+    <symbol id="b-gavel" viewBox="0 0 64 64"><rect x="6" y="49" width="32" height="9" rx="3" fill="#8b5a2b" stroke="#2b1a0e" stroke-width="2.5"/><path d="M30 30 L55 55" stroke="#2b1a0e" stroke-width="8.5" stroke-linecap="round"/><path d="M30 30 L55 55" stroke="#c48a4f" stroke-width="4" stroke-linecap="round"/><g transform="rotate(-45 25 25)"><rect x="11" y="16" width="28" height="18" rx="4" fill="#9b6431" stroke="#2b1a0e" stroke-width="3"/><rect x="8" y="15" width="6" height="20" rx="2" fill="#e8b923" stroke="#2b1a0e" stroke-width="2"/><rect x="36" y="15" width="6" height="20" rx="2" fill="#e8b923" stroke="#2b1a0e" stroke-width="2"/></g></symbol><symbol id="b-cannon" viewBox="0 0 64 64"><path d="M51 21 L60 12 L58.5 22 L64 24 L57 28 L61 36 L51.5 31 Z" fill="#ffb020" stroke="#c2410c" stroke-width="2" stroke-linejoin="round"/><path d="M5 37 L43 23 C47 21.5 51 23.5 52 27.5 C53 31.5 50.5 34.5 46 36 L9 47 Z" fill="#2e2e38" stroke="#111" stroke-width="3" stroke-linejoin="round"/><path d="M10 38.5 L41 27.5" stroke="#777788" stroke-width="2.5" stroke-linecap="round"/><path d="M8 44 L34 38 L34 50 L10 55 Z" fill="#8b5a2b" stroke="#2b1a0e" stroke-width="2.5" stroke-linejoin="round"/><circle cx="24" cy="52" r="9" fill="#a0692f" stroke="#2b1a0e" stroke-width="3"/><path d="M24 43 V61 M15 52 H33 M17.6 45.6 L30.4 58.4 M30.4 45.6 L17.6 58.4" stroke="#2b1a0e" stroke-width="1.8"/><circle cx="24" cy="52" r="2.6" fill="#2b1a0e"/></symbol><symbol id="b-shuffle" viewBox="0 0 64 64"><path d="M7 20 H19 C31 20 31 44 43 44 H50" fill="none" stroke="#1c2b4b" stroke-width="6.5" stroke-linecap="round"/><path d="M7 44 H19 C31 44 31 20 43 20 H50" fill="none" stroke="#b22234" stroke-width="6.5" stroke-linecap="round"/><path d="M47 10.5 L60 20 L47 29.5 Z" fill="#b22234" stroke="#6d1320" stroke-width="1.5" stroke-linejoin="round"/><path d="M47 34.5 L60 44 L47 53.5 Z" fill="#1c2b4b" stroke="#0e1628" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <!-- ===== UI Icons ===== -->
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.8C6 16.6 2.4 13.1 2.4 8.9 2.4 6 4.6 3.8 7.4 3.8c1.9 0 3.5 1 4.6 2.6 1.1-1.6 2.7-2.6 4.6-2.6 2.8 0 5 2.2 5 5.1 0 4.2-3.6 7.7-9.6 11.9z" fill="currentColor"/><path d="M6.2 7.6c.5-1 1.3-1.5 2.3-1.6" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".7"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="#e0a930" stroke="#7a5412" stroke-width="1.5"/><circle cx="12" cy="12" r="7.6" fill="#f2c14e" stroke="#b07f1e" stroke-width="1.2"/><path d="M12 6.8 L13.23 10.3 L16.95 10.39 L14 12.65 L15.06 16.21 L12 14.1 L8.94 16.21 L10 12.65 L7.05 10.39 L10.77 10.3 Z" fill="#fff6d8" stroke="#b07f1e" stroke-width=".8" stroke-linejoin="round"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2 L14.47 9.1 L21.99 9.26 L15.99 13.8 L18.17 20.99 L12 16.7 L5.83 20.99 L8.01 13.8 L2.01 9.26 L9.53 9.1 Z" fill="currentColor" stroke="rgba(0,0,0,.25)" stroke-width="1" stroke-linejoin="round"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 4v13.5M15 6.5V20" stroke="currentColor" stroke-width="2"/></symbol><symbol id="i-bag" viewBox="0 0 24 24"><path d="M4.5 8h15l-1.2 12.5H5.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 10V6.5a3.5 3.5 0 0 1 7 0V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.2C9.8 4.6 6.6 4.1 3.2 4.6v14.2c3.4-.5 6.6 0 8.8 1.6 2.2-1.6 5.4-2.1 8.8-1.6V4.6c-3.4-.5-6.6 0-8.8 1.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 6.2v14.2" stroke="currentColor" stroke-width="2"/></symbol><symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-dasharray="3.14 3.14"/><circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="9.5" width="17" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="2.5" y="6.5" width="19" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6.5v14M12 6.5C10 3 6.5 3 6.5 5s3 1.5 5.5 1.5zM12 6.5c2-3.5 5.5-3.5 5.5-1.5s-3 1.5-5.5 1.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol><symbol id="i-giftc" viewBox="0 0 64 64"><rect x="9" y="26" width="46" height="32" rx="3" fill="#b22234" stroke="#2b1a0e" stroke-width="3"/><rect x="5" y="18" width="54" height="11" rx="3" fill="#cf3346" stroke="#2b1a0e" stroke-width="3"/><rect x="28" y="18" width="8" height="40" fill="#f2c14e" stroke="#2b1a0e" stroke-width="2.5"/><path d="M32 18 C26 6 14 6 16 13 C17.5 18 26 18 32 18 Z M32 18 C38 6 50 6 48 13 C46.5 18 38 18 32 18 Z" fill="#f2c14e" stroke="#2b1a0e" stroke-width="2.5" stroke-linejoin="round"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol><symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9c1 .8 1.5 1.8 1.5 3s-.5 2.2-1.5 3M18 6.5c1.7 1.4 2.6 3.3 2.6 5.5s-.9 4.1-2.6 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5.2l3.5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="i-video" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9v6l5-3z" fill="currentColor"/></symbol><symbol id="i-restart" viewBox="0 0 24 24"><path d="M5.5 12a6.5 6.5 0 1 0 2-4.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M4.5 4v4.5H9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 4.5H5.5v15H10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8l4 4-4 4M18 12H9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v12M6.5 12l5.5 5.5 5.5-5.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.3 9.4a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2 1-1.2 1.8v.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.3" fill="currentColor"/></symbol><symbol id="i-infinity" viewBox="0 0 24 24"><path d="M12 12c-2-2.8-3.6-4-5.5-4a4 4 0 0 0 0 8c1.9 0 3.5-1.2 5.5-4zm0 0c2 2.8 3.6 4 5.5 4a4 4 0 0 0 0-8c-1.9 0-3.5 1.2-5.5 4z" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol><symbol id="i-medal" viewBox="0 0 64 64"><path d="M17 3 H30 L36 26 H23 Z" fill="#b22234" stroke="#6d1320" stroke-width="2" stroke-linejoin="round"/><path d="M47 3 H34 L28 26 H41 Z" fill="#1f3a78" stroke="#0e1b3d" stroke-width="2" stroke-linejoin="round"/><circle cx="32" cy="40.5" r="18.5" fill="#e0a930" stroke="#7a5412" stroke-width="3"/><circle cx="32" cy="40.5" r="13" fill="#f2c14e" stroke="#b07f1e" stroke-width="2"/><path d="M32 32.5 L33.94 37.83 L39.61 38.03 L35.14 41.52 L36.7 46.97 L32 43.8 L27.3 46.97 L28.86 41.52 L24.39 38.03 L30.06 37.83 Z" fill="#fff6d8" stroke="#b07f1e" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="app">
+  <section id="scr-main" class="screen parchment">
+    <header class="topbar">
+      <button class="pill" data-action="lives" aria-label="Lives"><svg class="heart-ico" aria-hidden="true"><use href="#i-heart"/></svg><span id="lives-n">5</span><span class="sub" id="lives-t">Full</span></button>
+      <button class="pill" data-action="goto-store" aria-label="Coins. Open the store"><svg aria-hidden="true"><use href="#i-coin"/></svg><span id="coins-n">300</span><span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></button>
+    </header>
+    <div class="views">
+      <div class="view" id="view-map"></div>
+      <div class="view" id="view-store" hidden></div>
+      <div class="view" id="view-book" hidden></div>
+      <div class="view" id="view-settings" hidden></div>
+    </div>
+    <nav class="tabbar" aria-label="Main menu">
+      <button class="tab" data-action="tab" data-tab="map" aria-current="page"><svg aria-hidden="true"><use href="#i-map"/></svg>Map<span class="dot" id="map-dot" hidden></span></button>
+      <button class="tab" data-action="tab" data-tab="store"><svg aria-hidden="true"><use href="#i-bag"/></svg>Store</button>
+      <button class="tab" data-action="tab" data-tab="book"><svg aria-hidden="true"><use href="#i-book"/></svg>History</button>
+      <button class="tab" data-action="tab" data-tab="settings"><svg aria-hidden="true"><use href="#i-gear"/></svg>Settings</button>
+    </nav>
+  </section>
+
+  <section id="scr-game" class="screen" hidden>
+    <div class="gtop">
+      <button class="gbtn" data-action="pause"><svg aria-hidden="true"><use href="#i-menu"/></svg>Menu</button>
+      <div class="gtitle"><span class="lv" id="g-lv">Level 2</span><span class="nm" id="g-nm"></span></div>
+    </div>
+    <div class="hud">
+      <div class="hud-box moves" id="hud-moves"><span class="lbl">Moves</span><span class="val" id="hud-moves-n">0</span></div>
+      <div class="hud-box goals-box"><span class="goals-lbl">Your goal</span><div class="goals" id="hud-goals"></div></div>
+    </div>
+    <div class="scorebar">
+      <div class="sb-track" id="sb-track"><div class="sb-fill" id="sb-fill"></div></div>
+      <div class="score-num" id="score-n">0</div>
+    </div>
+    <div class="board-wrap" id="board-wrap">
+      <div class="board" id="board" aria-label="Game board. Tap a piece, then tap the piece next to it to swap them.">
+        <div class="tiles" id="tiles"></div>
+        <div class="pieces" id="pieces"></div>
+        <div class="fx" id="fx"></div>
+      </div>
+    </div>
+    <div class="boosters" id="boosters">
+      <button class="booster" data-action="booster" data-b="gavel"><svg aria-hidden="true"><use href="#b-gavel"/></svg><span class="bname">Gavel</span><span class="bcount" id="bc-gavel">0</span></button>
+      <button class="booster" data-action="booster" data-b="cannon"><svg aria-hidden="true"><use href="#b-cannon"/></svg><span class="bname">Cannon</span><span class="bcount" id="bc-cannon">0</span></button>
+      <button class="booster" data-action="booster" data-b="shuffle"><svg aria-hidden="true"><use href="#b-shuffle"/></svg><span class="bname">Shuffle</span><span class="bcount" id="bc-shuffle">0</span></button>
+    </div>
+    <div id="bubble-slot"></div>
+  </section>
+
+  <div id="modal-root"></div>
+</div>
+
+<script>
+/* ==========================================================
+   Liberty Match 1776 · Game engine
+   ========================================================== */
+(function (root) {
+  'use strict';
+  function RNG(seed) { this.s = (seed >>> 0) || 1; }
+  RNG.prototype.next = function () {
+    this.s = (this.s + 0x6D2B79F5) >>> 0;
+    let t = this.s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  RNG.prototype.int = function (n) { return Math.floor(this.next() * n); };
+  RNG.prototype.clone = function () { const r = new RNG(1); r.s = this.s; return r; };
+
+  const PIECE_PTS = 20, CREATE_BONUS = { row: 60, col: 60, keg: 90, bell: 150 }, FIRE_BONUS = { cross: 60, bigcross: 120, bigkeg: 120, all: 300 };
+  const SEAL_PTS = 40, CRATE_HIT_PTS = 20, CRATE_BREAK_PTS = 60, DROP_PTS = 300, LEFTOVER_PTS = 100;
+
+  function decideSpecial(g) {
+    let maxLen = 0, hasH = false, hasV = false;
+    for (const r of g.runs) { if (r.cells.length > maxLen) maxLen = r.cells.length; if (r.dir === 'h') hasH = true; else hasV = true; }
+    if (maxLen >= 5) return 'bell';
+    if (hasH && hasV) return 'keg';
+    if (maxLen === 4) { const r4 = g.runs.find(r => r.cells.length === 4); return r4.dir === 'h' ? 'row' : 'col'; }
+    return null;
+  }
+
+  function Game(level, opts) {
+    opts = opts || {};
+    this.L = level;
+    this.rows = level.rows || 7; this.cols = level.cols || 7; this.n = this.rows * this.cols;
+    this.types = level.types || 5;
+    this.record = opts.record !== false;
+    this.rng = new RNG(opts.seed != null ? opts.seed : (Math.random() * 4294967296) >>> 0);
+    this.nextId = 1; this.cells = new Array(this.n).fill(null); this.seals = new Array(this.n).fill(0);
+    this.moves = level.moves; this.movesUsed = 0; this.score = 0; this.state = 'play';
+    this.maxDrops = level.maxDrops || 1;
+    this.goals = level.goals.map(g => Object.assign({}, g, { got: 0 }));
+    this.stats = { made: { row: 0, col: 0, keg: 0, bell: 0 }, fired: {}, cascades: 0, shuffles: 0 };
+    this._setup();
+  }
+
+  const G = Game.prototype;
+  G.rc = function (i) { return [(i / this.cols) | 0, i % this.cols]; };
+  G.idx = function (r, c) { return r * this.cols + c; };
+  G.color = function (i) { const c = this.cells[i]; return (c && c.k === 'p' && c.s !== 'bell') ? c.t : -1; };
+  G._nbrs = function (i) {
+    const C = this.cols, R = this.rows, r = (i / C) | 0, c = i % C, out = [];
+    if (r > 0) out.push(i - C); if (r < R - 1) out.push(i + C); if (c > 0) out.push(i - 1); if (c < C - 1) out.push(i + 1);
+    return out;
+  };
+  G.adjacent = function (a, b) {
+    if (a < 0 || b < 0 || a >= this.n || b >= this.n) return false;
+    const [ra, ca] = this.rc(a), [rb, cb] = this.rc(b); return Math.abs(ra - rb) + Math.abs(ca - cb) === 1;
+  };
+  G._center = function (cells) {
+    let sr = 0, sc = 0; for (const i of cells) { const [r, c] = this.rc(i); sr += r; sc += c; }
+    sr /= cells.length; sc /= cells.length; let best = cells[0], bd = 1e9;
+    for (const i of cells) { const [r, c] = this.rc(i), d = (r - sr) * (r - sr) + (c - sc) * (c - sc); if (d < bd) { bd = d; best = i; } }
+    return best;
+  };
+  G._crate = function (hp) { return { id: this.nextId++, k: 'c', hp: hp }; };
+
+  G._setup = function () {
+    const L = this.L;
+    if (L.layout) {
+      for (let r = 0; r < this.rows; r++) {
+        const line = L.layout[r] || '';
+        for (let c = 0; c < this.cols; c++) {
+          const ch = line[c] || '.', i = this.idx(r, c);
+          if (ch === 's') this.seals[i] = 1; else if (ch === 'S') this.seals[i] = 2; else if (ch === 'c') this.cells[i] = this._crate(1); else if (ch === 'C') this.cells[i] = this._crate(2);
+        }
+      }
+    }
+    for (const g of this.goals) {
+      if (g.kind === 'seal' && !g.n) g.n = this.seals.reduce((a, b) => a + b, 0);
+      if (g.kind === 'crate' && !g.n) g.n = this.cells.filter(c => c && c.k === 'c').length;
+    }
+    let tries = 0;
+    do { this._fillFresh(L.preset); tries++; } while (!L.preset && tries < 300 && (this.findGroups().length || this.findMoves().length < 3));
+    this._placeInitialDrops();
+    if (!this.findMoves(1).length) this._shuffle(null);
+  };
+
+  G._fillFresh = function (preset) {
+    const R = this.rows, C = this.cols;
+    for (let r = 0; r < R; r++) {
+      for (let c = 0; c < C; c++) {
+        const i = this.idx(r, c), cur = this.cells[i];
+        if (cur && cur.k === 'c') continue;
+        let t; const ch = preset && preset[r] ? preset[r][c] : undefined;
+        if (ch !== undefined && ch !== '.') t = +ch;
+        else {
+          let tries = 0;
+          do { t = this.rng.int(this.types); tries++; }
+          while (tries < 40 && ((c >= 2 && this.color(i - 1) === t && this.color(i - 2) === t) || (r >= 2 && this.color(i - C) === t && this.color(i - 2 * C) === t)));
+        }
+        this.cells[i] = { id: this.nextId++, k: 'p', t: t, s: null };
+      }
+    }
+  };
+
+  G._dropGoal = function () { return this.goals.find(g => g.kind === 'drop'); };
+  G.dropsOnBoard = function () { let n = 0; for (const c of this.cells) if (c && c.k === 'd') n++; return n; };
+  G._placeInitialDrops = function () {
+    const g = this._dropGoal(); if (!g) return;
+    const want = Math.min(this.maxDrops, g.n), cols = [];
+    for (let c = 1; c < this.cols - 1; c++) cols.push(c);
+    for (let k = cols.length - 1; k > 0; k--) { const j = this.rng.int(k + 1); [cols[k], cols[j]] = [cols[j], cols[k]]; }
+    const row = this.L.dropStartRow || 0; let placed = 0;
+    for (const c of cols) {
+      if (placed >= want) break; const i = this.idx(row, c), cur = this.cells[i];
+      if (cur && cur.k === 'c') continue;
+      this.cells[i] = { id: this.nextId++, k: 'd' }; placed++;
+    }
+  };
+
+  G.findRuns = function () {
+    const runs = [], R = this.rows, C = this.cols;
+    for (let r = 0; r < R; r++) {
+      let c = 0;
+      while (c < C) {
+        const t = this.color(r * C + c); let e = c + 1;
+        if (t >= 0) while (e < C && this.color(r * C + e) === t) e++;
+        if (t >= 0 && e - c >= 3) { const cells = []; for (let k = c; k < e; k++) cells.push(r * C + k); runs.push({ dir: 'h', t: t, cells: cells }); }
+        c = e;
+      }
+    }
+    for (let c = 0; c < C; c++) {
+      let r = 0;
+      while (r < R) {
+        const t = this.color(r * C + c); let e = r + 1;
+        if (t >= 0) while (e < R && this.color(e * C + c) === t) e++;
+        if (t >= 0 && e - r >= 3) { const cells = []; for (let k = r; k < e; k++) cells.push(k * C + c); runs.push({ dir: 'v', t: t, cells: cells }); }
+        r = e;
+      }
+    }
+    return runs;
+  };
+
+  G.findGroups = function () {
+    const runs = this.findRuns(); if (!runs.length) return [];
+    const parent = runs.map((_, i) => i);
+    const find = i => { while (parent[i] !== i) { parent[i] = parent[parent[i]]; i = parent[i]; } return i; };
+    const owner = new Map();
+    runs.forEach((run, i) => run.cells.forEach(ci => { if (owner.has(ci)) { const a = find(owner.get(ci)), b = find(i); if (a !== b) parent[a] = b; } else owner.set(ci, i); }));
+    const map = new Map();
+    runs.forEach((run, i) => {
+      const rt = find(i); let g = map.get(rt);
+      if (!g) { g = { t: run.t, runs: [], cells: new Set() }; map.set(rt, g); }
+      g.runs.push(run); run.cells.forEach(ci => g.cells.add(ci));
+    });
+    return Array.from(map.values());
+  };
+
+  G._placeCell = function (g, sp, prefer) {
+    for (const p of prefer) if (g.cells.has(p)) return p;
+    if (sp === 'keg') {
+      const hCells = new Set(); g.runs.forEach(r => { if (r.dir === 'h') r.cells.forEach(c => hCells.add(c)); });
+      for (const r of g.runs) if (r.dir === 'v') for (const c of r.cells) if (hCells.has(c)) return c;
+    }
+    let best = g.runs[0]; for (const r of g.runs) if (r.cells.length > best.cells.length) best = r;
+    return best.cells[Math.floor((best.cells.length - 1) / 2)];
+  };
+
+  G._lineAt = function (i) {
+    const t = this.color(i); if (t < 0) return { h: 0, v: 0, t: t };
+    const C = this.cols, R = this.rows, r = (i / C) | 0, c = i % C;
+    let h = 1, v = 1;
+    for (let k = c - 1; k >= 0 && this.color(r * C + k) === t; k--) h++;
+    for (let k = c + 1; k < C && this.color(r * C + k) === t; k++) h++;
+    for (let k = r - 1; k >= 0 && this.color(k * C + c) === t; k--) v++;
+    for (let k = r + 1; k < R && this.color(k * C + c) === t; k++) v++;
+    return { h: h, v: v, t: t };
+  };
+
+  G.findMoves = function (limit) {
+    const R = this.rows, C = this.cols, moves = [];
+    for (let i = 0; i < this.n; i++) {
+      const r = (i / C) | 0, c = i % C;
+      if (c + 1 < C) this._checkMove(i, i + 1, moves);
+      if (r + 1 < R) this._checkMove(i, i + C, moves);
+      if (limit && moves.length >= limit) break;
+    }
+    return moves;
+  };
+
+  G._checkMove = function (a, b, moves) {
+    const A = this.cells[a], B = this.cells[b];
+    if (!A || !B || A.k === 'c' || B.k === 'c') return;
+    const aSp = A.k === 'p' && A.s, bSp = B.k === 'p' && B.s;
+    if (aSp || bSp) {
+      if (aSp && !bSp) moves.push({ a: a, b: b, special: true }); else if (bSp && !aSp) moves.push({ a: b, b: a, special: true }); else moves.push({ a: a, b: b, special: true, combo: true });
+      return;
+    }
+    if (A.k === 'd' && B.k === 'd') return;
+    if (A.k === 'd' && b === a + this.cols) { moves.push({ a: a, b: b, drop: true }); return; }
+    this.cells[a] = B; this.cells[b] = A;
+    const la = this._lineAt(a), lb = this._lineAt(b);
+    this.cells[a] = A; this.cells[b] = B;
+    if (la.h >= 3 || la.v >= 3 || lb.h >= 3 || lb.v >= 3) moves.push({ a: a, b: b });
+  };
+
+  G._goalColors = function () { const s = new Set(); for (const g of this.goals) if (g.kind === 'collect' && g.got < g.n) s.add(g.t); return s; };
+  G._dropRows = function () {
+    if (!this._dropGoal()) return null;
+    const rows = {};
+    for (let i = 0; i < this.n; i++) { const c = this.cells[i]; if (c && c.k === 'd') { const col = i % this.cols, r = (i / this.cols) | 0; if (rows[col] === undefined || r > rows[col]) rows[col] = r; } }
+    return rows;
+  };
+
+  G.rateMove = function (m) {
+    const goalColors = this._goalColors(), A = this.cells[m.a], B = this.cells[m.b], dropRows = this._dropRows();
+    if (m.special) {
+      const sa = A.k === 'p' ? A.s : null, sb = B.k === 'p' ? B.s : null; let v = 14;
+      if (sa === 'bell' || sb === 'bell') v = 30;
+      if (sa && sb) v = 40;
+      if (dropRows && sa === 'col' && !sb) { const col = m.b % this.cols, r = (m.b / this.cols) | 0; if (dropRows[col] !== undefined && dropRows[col] < r) v += 25; }
+      return v;
+    }
+    this.cells[m.a] = B; this.cells[m.b] = A;
+    let v = 0;
+    const sealGoal = this.goals.some(g => g.kind === 'seal' && g.got < g.n), crateGoal = this.goals.some(g => g.kind === 'crate' && g.got < g.n);
+    for (const i of [m.a, m.b]) {
+      const L = this._lineAt(i); if (L.t < 0) continue;
+      const h = L.h >= 3 ? L.h : 0, vv = L.v >= 3 ? L.v : 0; if (!h && !vv) continue;
+      let n = h + vv;
+      if (h >= 5 || vv >= 5) n += 12; else if (h >= 3 && vv >= 3) n += 8; else if (h === 4 || vv === 4) n += 5;
+      if (goalColors.has(L.t)) n += 2 * (h + vv);
+      if (sealGoal || crateGoal || dropRows) {
+        const cells = this._lineCells(i, L);
+        for (const ci of cells) {
+          if (sealGoal && this.seals[ci] > 0) n += 3;
+          if (crateGoal) for (const nb of this._nbrs(ci)) { const c = this.cells[nb]; if (c && c.k === 'c') n += 2; }
+          if (dropRows) { const col = ci % this.cols, r = (ci / this.cols) | 0; if (dropRows[col] !== undefined && dropRows[col] < r) n += 5; }
+        }
+      }
+      v += n;
+    }
+    this.cells[m.a] = A; this.cells[m.b] = B;
+    if (dropRows) { if (A.k === 'd' && m.b === m.a + this.cols) v += 8; if (B.k === 'd' && m.b === m.a + this.cols) v -= 6; }
+    return v;
+  };
+
+  G._lineCells = function (i, L) {
+    const C = this.cols, R = this.rows, r = (i / C) | 0, c = i % C, t = L.t, out = [i];
+    if (L.h >= 3) { for (let k = c - 1; k >= 0 && this.color(r * C + k) === t; k--) out.push(r * C + k); for (let k = c + 1; k < C && this.color(r * C + k) === t; k++) out.push(r * C + k); }
+    if (L.v >= 3) { for (let k = r - 1; k >= 0 && this.color(k * C + c) === t; k--) out.push(k * C + c); for (let k = r + 1; k < R && this.color(k * C + c) === t; k++) out.push(k * C + c); }
+    return out;
+  };
+
+  G.previewMove = function (m) {
+    const A = this.cells[m.a], B = this.cells[m.b]; if (!A || !B) return null;
+    this.cells[m.a] = B; this.cells[m.b] = A; let res = null;
+    for (const i of [m.b, m.a]) { const L = this._lineAt(i); if (L.t >= 0 && (L.h >= 3 || L.v >= 3)) { res = { t: L.t, cells: this._lineCells(i, L) }; break; } }
+    this.cells[m.a] = A; this.cells[m.b] = B; return res;
+  };
+
+  G.bestMove = function () {
+    const moves = this.findMoves(); let best = null, bv = -Infinity;
+    for (const m of moves) { const v = this.rateMove(m); if (v > bv) { bv = v; best = m; } }
+    return best;
+  };
+
+  G.snapshot = function () {
+    return {
+      cells: this.cells.map(c => c ? { id: c.id, k: c.k, t: c.t, s: c.s, hp: c.hp } : null),
+      seals: this.seals.slice(), score: this.score, moves: this.moves, goals: this.goals.map(g => ({ kind: g.kind, t: g.t, n: g.n, got: g.got }))
+    };
+  };
+
+  G._phase = function (out, kind, extra) {
+    if (!out) return; const p = Object.assign({ kind: kind }, extra || {}); p.snap = this.snapshot(); out.push(p);
+  };
+
+  G._collect = function (t) { if (t == null || t < 0) return; for (const g of this.goals) if (g.kind === 'collect' && g.t === t && g.got < g.n) g.got++; };
+  G._goal = function (kind, k) { for (const g of this.goals) if (g.kind === kind) g.got = Math.min(g.n, g.got + k); };
+  G.goalsDone = function () { return this.goals.every(g => g.got >= g.n); };
+
+  G._targets = function (kind, i, color) {
+    const R = this.rows, C = this.cols, r = (i / C) | 0, c = i % C, out = new Set();
+    const add = (rr, cc) => { if (rr >= 0 && rr < R && cc >= 0 && cc < C) out.add(rr * C + cc); };
+    switch (kind) {
+      case 'row': for (let k = 0; k < C; k++) add(r, k); break;
+      case 'col': for (let k = 0; k < R; k++) add(k, c); break;
+      case 'keg': for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) add(r + dr, c + dc); break;
+      case 'bigkeg': for (let dr = -2; dr <= 2; dr++) for (let dc = -2; dc <= 2; dc++) add(r + dr, c + dc); break;
+      case 'cross': for (let k = 0; k < C; k++) add(r, k); for (let k = 0; k < R; k++) add(k, c); break;
+      case 'bigcross': for (let d = -1; d <= 1; d++) { for (let k = 0; k < C; k++) add(r + d, k); for (let k = 0; k < R; k++) add(k, c + d); } break;
+      case 'bell': for (let k = 0; k < this.n; k++) if (this.color(k) === color) out.add(k); break;
+      case 'all': for (let k = 0; k < this.n; k++) out.add(k); break;
+      case 'cannon': for (let k = 0; k < C; k++) add(r, k); break;
+    }
+    return Array.from(out);
+  };
+
+  G._mostCommonColor = function (exclude) {
+    const cnt = new Array(this.types).fill(0);
+    for (let i = 0; i < this.n; i++) { if (exclude && exclude.has(i)) continue; const t = this.color(i); if (t >= 0) cnt[t]++; }
+    let best = -1, bn = 0;
+    for (let t = 0; t < this.types; t++) { const score = cnt[t] + (this._goalColors().has(t) && cnt[t] > 0 ? 100 : 0); if (score > bn) { bn = score; best = t; } }
+    return best;
+  };
+
+  G._hit = function (t, x) {
+    if (x.protect.has(t)) return 0;
+    const c = this.cells[t]; if (!c) return 0;
+    if (c.k === 'c') { x.hitCrate(t); return 0; }
+    if (c.k !== 'p') return 0;
+    x.toClear.add(t); if (c.s && !x.activated.has(t)) x.queue.push({ i: t });
+    return 1;
+  };
+
+  G._clearPhase = function (out, o) {
+    const mult = o.mult || 1, toClear = new Set(), counted = new Set(), sealCells = new Set();
+    const crateHits = new Map(), protect = new Set(), activated = new Set(), created = [], fx = [], queue = [];
+    let pts = 0;
+    const hitCrate = i => crateHits.set(i, (crateHits.get(i) || 0) + 1), ctx = { toClear, queue, activated, protect, hitCrate };
+
+    if (o.groups) {
+      for (const g of o.groups) {
+        const sp = decideSpecial(g); let place = -1;
+        if (sp) {
+          place = this._placeCell(g, sp, o.prefer || []);
+          const cur = this.cells[place], keep = !!(cur && cur.k === 'p' && !cur.s);
+          created.push({ i: place, t: sp === 'bell' ? -1 : g.t, s: sp, keep: keep });
+          if (keep) protect.add(place);
+          pts += CREATE_BONUS[sp]; this.stats.made[sp]++;
+        }
+        const adj = new Set();
+        g.cells.forEach(ci => { sealCells.add(ci); if (!protect.has(ci)) toClear.add(ci); this._collect(g.t); counted.add(ci); for (const nb of this._nbrs(ci)) { const c = this.cells[nb]; if (c && c.k === 'c') adj.add(nb); } });
+        adj.forEach(hitCrate);
+        const cells = Array.from(g.cells);
+        fx.push({ fx: 'match', cells: cells, t: g.t, at: place >= 0 ? place : this._center(cells), pts: cells.length * PIECE_PTS * mult + (sp ? CREATE_BONUS[sp] : 0), special: sp });
+      }
+      pts += protect.size * PIECE_PTS * mult;
+    }
+
+    if (o.hits) for (const i of o.hits) this._hit(i, ctx);
+    if (o.crateHits) for (const i of o.crateHits) { const c = this.cells[i]; if (c && c.k === 'c') hitCrate(i); }
+    if (o.consumed) for (const i of o.consumed) { activated.add(i); toClear.add(i); }
+    if (o.seeds) for (const s of o.seeds) queue.push(s);
+    if (o.fx) fx.push(o.fx);
+    toClear.forEach(ci => { const c = this.cells[ci]; if (c && c.k === 'p' && c.s && !activated.has(ci)) queue.push({ i: ci }); });
+
+    let guard = 0;
+    while (queue.length && guard++ < 1000) {
+      const sd = queue.shift(), i = sd.i, c = this.cells[i];
+      if (!sd.force) { if (activated.has(i)) continue; if (!c || c.k !== 'p' || !c.s) continue; }
+      const kind = sd.as || (c && c.k === 'p' ? c.s : null); if (!kind) continue;
+      activated.add(i); if (c && c.k === 'p' && !protect.has(i)) toClear.add(i);
+      let color = sd.color; if (kind === 'bell' && (color == null || color < 0)) color = this._mostCommonColor(toClear);
+      const targets = this._targets(kind, i, color); let hitN = 0;
+      for (const t of targets) { if (t !== i) hitN += this._hit(t, ctx); }
+      fx.push({ fx: kind, at: i, cells: targets, color: color, pts: hitN * PIECE_PTS * mult + (FIRE_BONUS[kind] || 0) });
+      pts += FIRE_BONUS[kind] || 0; this.stats.fired[kind] = (this.stats.fired[kind] || 0) + 1;
+    }
+
+    const removed = [];
+    toClear.forEach(ci => {
+      if (protect.has(ci)) return;
+      const c = this.cells[ci]; if (!c || c.k !== 'p') return;
+      removed.push({ id: c.id, i: ci, t: c.t, s: c.s });
+      if (!counted.has(ci)) this._collect(c.t);
+      pts += PIECE_PTS * mult; sealCells.add(ci); this.cells[ci] = null;
+    });
+
+    const sealsHit = [];
+    sealCells.forEach(ci => { if (this.seals[ci] > 0) { this.seals[ci]--; sealsHit.push(ci); pts += SEAL_PTS; this._goal('seal', 1); } });
+
+    const cratesHit = [];
+    crateHits.forEach((h, ci) => {
+      const c = this.cells[ci]; if (!c || c.k !== 'c') return;
+      c.hp -= h;
+      if (c.hp <= 0) { removed.push({ id: c.id, i: ci, k: 'c' }); this.cells[ci] = null; this._goal('crate', 1); pts += CRATE_BREAK_PTS; }
+      else { cratesHit.push(ci); pts += CRATE_HIT_PTS; }
+    });
+
+    const made = [];
+    for (const cr of created) {
+      const cur = this.cells[cr.i];
+      if (cr.keep && cur && cur.k === 'p') { cur.s = cr.s; cur.t = cr.t; made.push({ id: cur.id, i: cr.i, s: cr.s, t: cr.t }); }
+      else { const p = { id: this.nextId++, k: 'p', t: cr.t, s: cr.s }; this.cells[cr.i] = p; made.push({ id: p.id, i: cr.i, s: cr.s, t: cr.t, fresh: true }); }
+    }
+
+    this.score += pts;
+    this._phase(out, 'clear', { removed: removed, made: made, sealsHit: sealsHit, cratesHit: cratesHit, fx: fx, pts: pts, mult: mult });
+    return removed.length + made.length + sealsHit.length + cratesHit.length;
+  };
+
+  G._spawn = function () {
+    const g = this._dropGoal();
+    if (g) { const on = this.dropsOnBoard(); if (on < this.maxDrops && g.got + on < g.n && this.movesUsed >= (this.L.dropDelay || 0)) return { id: this.nextId++, k: 'd' }; }
+    return { id: this.nextId++, k: 'p', t: this.rng.int(this.types), s: null };
+  };
+
+  G._gravity = function (out) {
+    const R = this.rows, C = this.cols, moves = [], spawns = []; let any = false;
+    for (let c = 0; c < C; c++) {
+      let w = R - 1;
+      for (let r = R - 1; r >= 0; r--) {
+        const i = r * C + c, cell = this.cells[i];
+        if (cell) { if (r !== w) { this.cells[w * C + c] = cell; this.cells[i] = null; moves.push({ id: cell.id, from: i, to: w * C + c }); any = true; } w--; }
+      }
+      const empties = w + 1;
+      for (let r = w; r >= 0; r--) { const cell = this._spawn(); this.cells[r * C + c] = cell; spawns.push({ id: cell.id, to: r * C + c, fromRow: r - empties }); any = true; }
+    }
+    if (any) this._phase(out, 'fall', { moves: moves, spawns: spawns });
+    return any;
+  };
+
+  G._deliverDrops = function (out) {
+    const R = this.rows, C = this.cols, got = [];
+    for (let c = 0; c < C; c++) {
+      const i = (R - 1) * C + c, cell = this.cells[i];
+      if (cell && cell.k === 'd') { got.push({ id: cell.id, i: i, k: 'd' }); this.cells[i] = null; this._goal('drop', 1); this.score += DROP_PTS; }
+    }
+    if (got.length) this._phase(out, 'deliver', { removed: got, pts: got.length * DROP_PTS });
+    return got.length > 0;
+  };
+
+  G._settle = function (out, mult) {
+    for (let guard = 0; guard < 80; guard++) {
+      this._gravity(out);
+      const groups = this.findGroups();
+      if (groups.length) { mult++; this.stats.cascades++; this._clearPhase(out, { groups: groups, mult: Math.min(mult, 8) }); continue; }
+      if (this._deliverDrops(out)) continue; break;
+    }
+  };
+
+  G._afterTurn = function (out) {
+    if (this.goalsDone()) { this.state = 'won'; return; }
+    if (this.moves <= 0) { this.state = 'lost'; return; }
+    if (!this.findMoves(1).length) this._shuffle(out);
+  };
+
+  G._shuffle = function (out) {
+    const idxs = []; for (let i = 0; i < this.n; i++) { const c = this.cells[i]; if (c && c.k === 'p') idxs.push(i); }
+    const pieces = idxs.map(i => this.cells[i]);
+    for (let attempt = 0; attempt < 400; attempt++) {
+      if (attempt > 0 && attempt % 40 === 0) { for (const p of pieces) if (!p.s) p.t = this.rng.int(this.types); }
+      for (let k = pieces.length - 1; k > 0; k--) { const j = this.rng.int(k + 1); const tmp = pieces[k]; pieces[k] = pieces[j]; pieces[j] = tmp; }
+      idxs.forEach((i, k) => { this.cells[i] = pieces[k]; });
+      if (!this.findGroups().length && this.findMoves(1).length) break;
+    }
+    this.stats.shuffles++; this._phase(out, 'shuffle', {});
+  };
+
+  G.trySwap = function (a, b) {
+    const out = []; 
+    if (this.state !== 'play' || this.moves <= 0) return { ok: false, reason: 'over', phases: out };
+    if (!this.adjacent(a, b)) return { ok: false, reason: 'far', phases: out };
+    const A = this.cells[a], B = this.cells[b];
+    if (!A || !B || A.k === 'c' || B.k === 'c') return { ok: false, reason: 'blocked', phases: out };
+    const aSp = A.k === 'p' && A.s, bSp = B.k === 'p' && B.s;
+    const dropDown = (A.k === 'd' && b === a + this.cols && B.k !== 'd') || (B.k === 'd' && a === b + this.cols && A.k !== 'd');
+    this.cells[a] = B; this.cells[b] = A;
+    if (aSp || bSp) {
+      this._phase(out, 'swap', { a: a, b: b }); this._useMove(); this._specialSwap(out, a, b);
+    } else if (dropDown) {
+      this._phase(out, 'swap', { a: a, b: b }); this._useMove();
+      const groups = this.findGroups(); if (groups.length) this._clearPhase(out, { groups: groups, prefer: [b, a], mult: 1 }); this._settle(out, 1);
+    } else {
+      const groups = this.findGroups();
+      if (!groups.length) { this.cells[a] = A; this.cells[b] = B; out.push({ kind: 'swapBack', a: a, b: b, snap: this.snapshot() }); return { ok: false, reason: 'nomatch', phases: out }; }
+      this._phase(out, 'swap', { a: a, b: b }); this._useMove(); this._clearPhase(out, { groups: groups, prefer: [b, a], mult: 1 }); this._settle(out, 1);
+    }
+    this._afterTurn(out); return { ok: true, phases: out };
+  };
+
+  G._useMove = function () { this.moves--; this.movesUsed++; };
+
+  G._specialSwap = function (out, a, b) {
+    const P = this.cells[b], Q = this.cells[a], ps = P.k === 'p' ? P.s : null, qs = Q.k === 'p' ? Q.s : null;
+    if (ps === 'bell' && qs === 'bell') {
+      this._clearPhase(out, { seeds: [{ i: b, as: 'all', force: true }], consumed: [a, b], mult: 1 });
+    } else if (ps === 'bell' || qs === 'bell') {
+      const bellCell = ps === 'bell' ? b : a, otherCell = ps === 'bell' ? a : b, O = this.cells[otherCell];
+      if (O.k === 'p' && O.s) {
+        const color = O.t, conv = [];
+        for (let k = 0; k < this.n; k++) { const c = this.cells[k]; if (c && c.k === 'p' && c.t === color && !c.s) { c.s = O.s === 'keg' ? 'keg' : (this.rng.next() < 0.5 ? 'row' : 'col'); conv.push(k); } }
+        this._phase(out, 'convert', { cells: conv, at: bellCell });
+        const seeds = [{ i: bellCell, as: 'ring', force: true }];
+        for (let k = 0; k < this.n; k++) { const c = this.cells[k]; if (c && c.k === 'p' && c.t === color && c.s && c.s !== 'bell') seeds.push({ i: k }); }
+        this._clearPhase(out, { seeds: seeds, consumed: [bellCell], mult: 1 });
+      } else {
+        const color = O.k === 'p' ? O.t : this._mostCommonColor(null);
+        this._clearPhase(out, { seeds: [{ i: bellCell, as: 'bell', color: color, force: true }], consumed: [bellCell], mult: 1 });
+      }
+    } else if (ps && qs) {
+      const lines = (ps === 'row' || ps === 'col' ? 1 : 0) + (qs === 'row' || qs === 'col' ? 1 : 0), as = (ps === 'keg' && qs === 'keg') ? 'bigkeg' : (lines === 2 ? 'cross' : 'bigcross');
+      this._clearPhase(out, { seeds: [{ i: b, as: as, force: true }], consumed: [a, b], mult: 1 });
+    } else {
+      const spCell = ps ? b : a, groups = this.findGroups();
+      this._clearPhase(out, { groups: groups, prefer: [b, a], seeds: [{ i: spCell, force: true }], mult: 1 });
+    }
+    this._settle(out, 1);
+  };
+
+  G.useGavel = function (i) {
+    const out = this.record ? [] : null, c = this.cells[i];
+    if (this.state !== 'play' || !c || c.k === 'd') return { ok: false, phases: out };
+    if (c.k === 'c') this._clearPhase(out, { crateHits: [i], fx: { fx: 'gavel', at: i, cells: [i] }, mult: 1 });
+    else if (c.s) this._clearPhase(out, { seeds: [{ i: i, force: true }], fx: { fx: 'gavel', at: i, cells: [i] }, mult: 1 });
+    else this._clearPhase(out, { hits: [i], fx: { fx: 'gavel', at: i, cells: [i] }, mult: 1 });
+    this._settle(out, 1); this._afterTurn(out); return { ok: true, phases: out };
+  };
+
+  G.useCannon = function (row) {
+    const out = this.record ? [] : null;
+    if (this.state !== 'play' || row < 0 || row >= this.rows) return { ok: false, phases: out };
+    const cells = this._targets('cannon', row * this.cols, 0);
+    this._clearPhase(out, { hits: cells, fx: { fx: 'cannon', at: row * this.cols, row: row, cells: cells }, mult: 1 });
+    this._settle(out, 1); this._afterTurn(out); return { ok: true, phases: out };
+  };
+
+  G.useShuffle = function () {
+    const out = this.record ? [] : null;
+    if (this.state !== 'play') return { ok: false, phases: out };
+    this._shuffle(out); return { ok: true, phases: out };
+  };
+
+  G.addMoves = function (k) {
+    this.moves += k; if (this.state === 'lost') this.state = 'play';
+    const out = this.record ? [] : null;
+    if (!this.findMoves(1).length) this._shuffle(out); return out;
+  };
+
+  G.celebrate = function () {
+    const out = this.record ? [] : null, left = this.moves;
+    if (left > 0) {
+      const cand = [];
+      for (let i = 0; i < this.n; i++) { const c = this.cells[i]; if (c && c.k === 'p' && !c.s) cand.push(i); }
+      for (let k = cand.length - 1; k > 0; k--) { const j = this.rng.int(k + 1); const t = cand[k]; cand[k] = cand[j]; cand[j] = t; }
+      const conv = cand.slice(0, Math.min(left, 12));
+      conv.forEach(i => { this.cells[i].s = this.rng.next() < 0.5 ? 'row' : 'col'; });
+      this.score += left * LEFTOVER_PTS; this.moves = 0;
+      this._phase(out, 'convert', { cells: conv, bonus: left * LEFTOVER_PTS, celebrate: true });
+    }
+    for (let wave = 0; wave < 12; wave++) {
+      const seeds = [];
+      for (let i = 0; i < this.n; i++) { const c = this.cells[i]; if (c && c.k === 'p' && c.s) seeds.push({ i: i }); }
+      if (!seeds.length) break;
+      this._clearPhase(out, { seeds: seeds, mult: 1 }); this._settle(out, 1);
+    }
+    return out;
+  };
+
+  G.starsFor = function (score) { const s = this.L.stars || [0, 0, 0]; return 1 + (score >= s[1] ? 1 : 0) + (score >= s[2] ? 1 : 0); };
+  root.Engine = { Game: Game, RNG: RNG, decideSpecial: decideSpecial };
+})(typeof window !== 'undefined' ? window : this);
+</script>
+
+</body></html>
